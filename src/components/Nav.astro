@@ -1,0 +1,73 @@
+---
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-gray-900/90 backdrop-blur-md shadow-lg px-6 py-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">TuzaIT</h1>
+        
+        <button id="menuToggle" class="md:hidden text-white focus:outline-none cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+        
+        <ul class="hidden md:flex space-x-8">
+            <li><a href="#projects" class="text-gray-300 hover:text-white transition-colors duration-300 font-medium">Projektek</a></li>
+            <li><a href="#about" class="text-gray-300 hover:text-white transition-colors duration-300 font-medium">Rólunk</a></li>
+            <li><a href="#contact" class="text-gray-300 hover:text-white transition-colors duration-300 font-medium">Kapcsolat</a></li>
+        </ul>
+    </div>
+    
+    <div id="mobileMenu" class="invisible opacity-0 transform -translate-y-2 transition-all duration-300 ease-out md:hidden bg-gray-900 mt-4 rounded-lg shadow-xl p-4 absolute left-0 right-0 mx-6">
+        <ul class="space-y-4">
+            <li><a href="#projects" class="block text-gray-300 hover:text-white transition-colors duration-300 font-medium py-2">Projektek</a></li>
+            <li><a href="#about" class="block text-gray-300 hover:text-white transition-colors duration-300 font-medium py-2">Rólunk</a></li>
+            <li><a href="#contact" class="block text-gray-300 hover:text-white transition-colors duration-300 font-medium py-2">Kapcsolat</a></li>
+        </ul>
+    </div>
+</nav>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    function showMenu() {
+        mobileMenu?.classList.remove('invisible');
+        requestAnimationFrame(() => {
+            mobileMenu?.classList.remove('opacity-0', '-translate-y-2');
+        });
+    }
+
+    function hideMenu() {
+        mobileMenu?.classList.add('opacity-0', '-translate-y-2');
+        setTimeout(() => {
+            mobileMenu?.classList.add('invisible');
+        }, 300);
+    }
+
+    let isOpen = false;
+    menuToggle?.addEventListener('click', () => {
+        isOpen = !isOpen;
+        if (isOpen) {
+            showMenu();
+        } else {
+            hideMenu();
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        if (!target.closest('#menuToggle') && !target.closest('#mobileMenu') && isOpen) {
+            isOpen = false;
+            hideMenu();
+        }
+    });
+
+    const mobileLinks = mobileMenu?.querySelectorAll('a');
+    mobileLinks?.forEach(link => {
+        link.addEventListener('click', () => {
+            isOpen = false;
+            hideMenu();
+        });
+    });
+</script>

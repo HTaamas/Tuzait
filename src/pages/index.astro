@@ -1,0 +1,492 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import Nav from "../components/Nav.astro";
+import Hero from "../components/Hero.astro";
+import Footer from "../components/Footer.astro";
+import About from "../components/About.astro";
+
+// Import all media files
+import tuzamerVideo from "../../public/aramkorimeresek/tuzamer.mp4";
+import gepszereles1 from "../../public/gepszereles/1.jpg";
+import cisco3 from "../../public/cisco/cisco3/cisco3.png";
+import cisco4 from "../../public/cisco/cisco4/cisco4.png";
+import cisco5 from "../../public/cisco/cisco5/cisco5.png";
+
+import prisma from '../lib/prisma';
+const users = await prisma.user.findMany({
+	orderBy: {
+		id: 'asc',
+	},
+});
+
+const gep = await prisma.pCs.findMany({
+	orderBy: {
+		id: 'asc',
+	},
+});
+
+const ip = await prisma.iPs.findMany({
+	orderBy: {
+		id: 'asc',
+	},
+});
+---
+
+<Layout>
+	<Nav />
+    <Hero />
+
+	<!-- Projects section with cards and hover effects -->
+	<section id="projects" class="py-16 md:py-24 px-6">
+        <div class="absolute bottom-0 -left-24 w-64 h-64 bg-blue-500/20 rounded-full filter blur-3xl"></div>
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 relative inline-block">
+                <span class="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">Projektek</span>
+                <span class="absolute -bottom-2 left-0 w-1/2 h-1 bg-gradient-to-r from-blue-400 to-purple-500"></span>
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <ProjectCard
+                    title="9. év első projektje"
+                    subtitle="Áramköri mérések"
+                    description="Tanulmányoztuk az áramkörök működését és méréseket végeztünk különböző elektromos komponensekkel."
+                    modalId="modal1"
+                    accentColor="blue"
+                    video={tuzamerVideo}
+                />
+
+                <ProjectCard
+                    title="9. év második projektje"
+                    subtitle="Gép szerelés"
+                    description="Megtanultuk a számítógépek hardveres összetevőit és gyakoroltuk a gépek összeszerelését."
+                    modalId="modal2"
+                    accentColor="purple"
+                    image={gepszereles1}
+                />
+
+                <ProjectCard
+                    title="10. év első projektje"
+                    subtitle="Egyszerű hálózat és python kábel választó"
+                    description="Létrehoztunk egy hálózati szimulációt és fejlesztettünk egy Python programot a megfelelő kábeltípus kiválasztásához."
+                    modalId="modal3"
+                    accentColor="blue"
+                    image={cisco3}
+                />
+
+                <ProjectCard
+                    title="10. év második projektje"
+                    subtitle="Kisvállalati hálózat és python hálózati cím számoló"
+                    description="Megterveztünk egy vállalati hálózatot és fejlesztettünk egy IP címszámító eszközt Python nyelven."
+                    modalId="modal4"
+                    accentColor="purple"
+                    image={cisco4}
+                />
+
+                <ProjectCard
+                    title="11. év első projektje"
+                    subtitle="Kisvállalati hálózat és egytáblás adatbázis"
+                    description="Megterveztünk egy vállalati hálózatot és egy egytáblás adatbázist hoztunk létre a felhasználók kezelésére."
+                    modalId="modal5"
+                    accentColor="blue"
+                    image={cisco5}
+                />
+
+				<ProjectCard
+                    title="11. év második projektje"
+                    subtitle="Kisvállalati hálózat és kéttáblás adatbázis"
+                    description="Megterveztünk egy vállalati hálózatot és csináltunk egy kéttáblás adatbázist a gépek kezelésére."
+                    modalId="modal6"
+                    accentColor="purple"
+                    image={cisco4}
+                />
+            </div>
+        </div>
+    </section>
+
+	<!-- Modal 1 - Redesigned with better layout -->
+	<div id="modal1" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center hidden" onclick="closeModal('modal1')">
+		<div class="bg-gray-900 rounded-2xl p-8 max-w-4xl w-11/12 max-h-[90vh] overflow-auto border border-gray-700 shadow-2xl" onclick="event.stopPropagation()">
+			<div class="flex justify-between items-center mb-6">
+				<h2 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">9. év első projektje</h2>
+				<button onclick="closeModal('modal1')" class="text-gray-400 hover:text-white transition-colors">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				</button>
+			</div>
+			<div class="flex flex-col md:flex-row gap-8">
+				<div class="flex-1">
+					<div class="relative">
+						<div class="flex justify-center items-center relative">
+							<button id="leftButtonImg1" class="absolute left-0 z-10 bg-blue-500 hover:bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors cursor-pointer">
+								<svg xmlns="URL_ADDRESS.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+								</svg>
+							</button>
+
+							<div class="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 px-4 py-2 rounded-full bg-black/70">
+								<h2 id="imageCounter1" class="text-sm md:text-base font-medium"></h2>
+							</div>
+
+							<video id="projectVideo1" class="hidden rounded-lg w-full h-auto max-h-[50vh] object-contain" controls playsinline></video>
+							<img id="projectImages1" class="hidden rounded-lg w-full h-auto max-h-[50vh] object-contain" onclick="enlargeImage(this)">
+
+							<button id="rightButtonImg1" class="absolute right-0 z-10 bg-blue-500 hover:bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors cursor-pointer">
+								<svg xmlns="URL_ADDRESS.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+								</svg>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="flex-1">
+					<p class="text-gray-300 mb-6">Áramköri méréseket végeztünk, ahol különböző elektromos komponensek viselkedését és tulajdonságait vizsgáltuk. Ez a projekt segített megérteni az elektronika alapelveit és a mérési módszereket.</p>
+					<div class="flex flex-wrap gap-3">
+						<a href="/aramkorimeresek/aramkorimeres.docx" class="flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+								<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd" />
+							</svg>
+							Dokumentáció
+						</a>
+						<a href="https://www.tinkercad.com/things/fY2jCMJMDH2-tuzait-aramkor?sharecode=j97wQUiGkBr534GeI4rua8MbQVPsA9wl8B0w-sJf6zI" class="flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
+							<img src="/aramkor/tinkercad.png" alt="TinkerCAD Logo" class="h-5 w-5 mr-2">
+							TinkerCAD Link
+						</a>
+						<button onclick="closeModal('modal1')" class="flex items-center px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors cursor-pointer">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+								<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+							</svg>
+							Bezár
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal 2 - Same modern design pattern for all modals -->
+	<div id="modal2" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center hidden" onclick="closeModal('modal2')">
+		<div class="bg-gray-900 rounded-2xl p-8 max-w-4xl w-11/12 max-h-[90vh] overflow-auto border border-gray-700 shadow-2xl" onclick="event.stopPropagation()">
+			<div class="flex justify-between items-center mb-6">
+				<h2 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">9. év második projektje</h2>
+				<button onclick="closeModal('modal2')" class="text-gray-400 hover:text-white transition-colors">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				</button>
+			</div>
+			<div class="flex flex-col md:flex-row gap-8">
+				<div class="flex-1">
+					<div class="relative">
+						<div class="flex justify-center items-center relative">
+							<button id="leftButtonImg2" class="absolute left-0 z-10 bg-purple-500 hover:bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors cursor-pointer">
+								<svg xmlns="URL_ADDRESS.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+								</svg>
+							</button>
+
+							<div class="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 px-4 py-2 rounded-full bg-black/70">
+								<h2 id="imageCounter2" class="text-sm md:text-base font-medium"></h2>
+							</div>
+
+							<video id="projectVideo2" class="hidden rounded-lg w-full h-auto max-h-[50vh] object-contain" controls playsinline></video>
+							<img id="projectImages2" class="rounded-lg w-full h-auto max-h-[50vh] object-contain" onclick="enlargeImage(this)">
+
+							<button id="rightButtonImg2" class="absolute right-0 z-10 bg-purple-500 hover:bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors cursor-pointer">
+								<svg xmlns="URL_ADDRESS.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+								</svg>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="flex-1">
+					<p class="text-gray-300 mb-6">A számítógép szerelés projekt során megismertük a különböző hardver komponenseket és azok összeillesztésének helyes módját. Megtanultuk a PC építés lépéseit és a rendszer optimalizálását.</p>
+					<div class="flex flex-wrap gap-3">
+						<button onclick="closeModal('modal2')" class="flex items-center px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors cursor-pointer">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+								<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+							</svg>
+							Bezár
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal 3 - Redesigned with better UI for the cable selector -->
+	<div id="modal3" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center hidden" onclick="closeModal('modal3')">
+		<div class="bg-gray-900 rounded-2xl p-8 max-w-4xl w-11/12 max-h-[90vh] overflow-auto border border-gray-700 shadow-2xl" onclick="event.stopPropagation()">
+			<div class="flex justify-between items-center mb-6">
+				<h2 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">10. év első projektje</h2>
+				<button onclick="closeModal('modal3')" class="text-gray-400 hover:text-white transition-colors">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				</button>
+			</div>
+
+			<div class="bg-gray-800/50 p-6 rounded-xl mb-6 border border-gray-700">
+				<h3 class="text-xl font-medium mb-4 text-center">Kábel választó eszköz</h3>
+				<form id="cableForm" class="flex flex-col items-center gap-4">
+					<div class="grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-md">
+						<label class="relative block">
+							<input type="radio" name="row1" value="Hub" class="peer hidden">
+							<span class="block cursor-pointer bg-gray-700 hover:bg-gray-600 peer-checked:hover:bg-blue-700 text-white text-center py-3 px-2 rounded-lg transition-colors peer-checked:bg-blue-600">Hub</span>
+						</label>
+						<label class="relative block">
+							<input type="radio" name="row1" value="Switch" class="peer hidden">
+							<span class="block cursor-pointer bg-gray-700 hover:bg-gray-600 peer-checked:hover:bg-blue-700 text-white text-center py-3 px-2 rounded-lg transition-colors peer-checked:bg-blue-600">Switch</span>
+						</label>
+						<label class="relative block">
+							<input type="radio" name="row1" value="Router" class="peer hidden">
+							<span class="block cursor-pointer bg-gray-700 hover:bg-gray-600 peer-checked:hover:bg-blue-700 text-white text-center py-3 px-2 rounded-lg transition-colors peer-checked:bg-blue-600">Router</span>
+						</label>
+						<label class="relative block">
+							<input type="radio" name="row1" value="Workstation" class="peer hidden">
+							<span class="block cursor-pointer bg-gray-700 hover:bg-gray-600 peer-checked:hover:bg-blue-700 text-white text-center py-3 px-1 rounded-lg transition-colors peer-checked:bg-blue-600">Workstation</span>
+						</label>
+					</div>
+
+					<div class="text-center font-medium text-xl">↕️</div>
+
+					<div class="grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-md">
+						<label class="relative block">
+							<input type="radio" name="row2" value="Hub" class="peer hidden">
+							<span class="block cursor-pointer bg-gray-700 hover:bg-gray-600 peer-checked:hover:bg-blue-700 text-white text-center py-3 px-2 rounded-lg transition-colors peer-checked:bg-blue-600">Hub</span>
+						</label>
+						<label class="relative block">
+							<input type="radio" name="row2" value="Switch" class="peer hidden">
+							<span class="block cursor-pointer bg-gray-700 hover:bg-gray-600 peer-checked:hover:bg-blue-700 text-white text-center py-3 px-2 rounded-lg transition-colors peer-checked:bg-blue-600">Switch</span>
+						</label>
+						<label class="relative block">
+							<input type="radio" name="row2" value="Router" class="peer hidden">
+							<span class="block cursor-pointer bg-gray-700 hover:bg-gray-600 peer-checked:hover:bg-blue-700 text-white text-center py-3 px-2 rounded-lg transition-colors peer-checked:bg-blue-600">Router</span>
+						</label>
+						<label class="relative block">
+							<input type="radio" name="row2" value="Workstation" class="peer hidden">
+							<span class="block cursor-pointer bg-gray-700 hover:bg-gray-600 peer-checked:hover:bg-blue-700 text-white text-center py-3 px-1 rounded-lg transition-colors peer-checked:bg-blue-600">Workstation</span>
+						</label>
+					</div>
+
+					<div id="suggestion" class="min-h-12 text-center font-medium text-lg my-2 text-green-400"></div>
+
+					<button type="button" class="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors shadow-lg flex items-center justify-center cursor-pointer" onclick="suggestCable()">
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+							<path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+						</svg>
+						Kábel ajánlása
+					</button>
+				</form>
+			</div>
+
+			<div class="flex flex-col md:flex-row gap-6">
+				<div class="flex-1">
+					<p class="text-gray-300 mb-6">
+						A 10. év első projektje során megismerkedtünk a számítógép szereléshez szükséges hardverekkel és a hozzájuk tartozó eszközökkel.
+					</p>
+					<div class="flex flex-wrap gap-3">
+						<a href="/python/cable.py" class="flex items-center px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors" download>
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+								<path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+							</svg>
+							Python változat
+						</a>
+						<a href="/cisco/cisco3/cisco3.pkt" class="flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors" download>
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+								<path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+							</svg>
+							Cisco hálózat
+						</a>
+						<button onclick="closeModal('modal3')" class="flex items-center px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors cursor-pointer">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+								<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+							</svg>
+							Bezár
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal 4 -->
+	<div id="modal4" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center hidden" onclick="closeModal('modal4')">
+		<div class="bg-gray-900 rounded-2xl p-8 max-w-4xl w-11/12 max-h-[90vh] overflow-auto border border-gray-700 shadow-2xl" onclick="event.stopPropagation()">
+			<div class="flex justify-between items-center mb-6">
+				<h2 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">10. év második projektje</h2>
+				<button onclick="closeModal('modal4')" class="text-gray-400 hover:text-white transition-colors">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				</button>
+			</div>
+			<div class="bg-gray-800/50 p-6 rounded-xl mb-6 border border-gray-700">
+				<h3 class="text-xl font-medium mb-4">IP Kalkulátor</h3>
+				<div class="flex flex-col gap-4">
+					<div class="flex flex-col gap-2">
+						<label for="ipInput" class="text-gray-300">Add meg az IP címet (pl.: 192.168.0.1/24):</label>
+						<input type="text" id="ipInput" placeholder="IP cím/prefix" class="bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500">
+					</div>
+					<button onclick="displayIPInfo()" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer">
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+							<path fill-rule="evenodd" d="M6.672 1.911a1 1 0 10-1.932.518l.259.966a1 1 0 001.932-.518l-.26-.966zM2.429 4.74a1 1 0 10-.517 1.932l.966.259a1 1 0 00.517-1.932l-.966-.26zm8.814-.569a1 1 0 00-1.415-1.414l-.707.707a1 1 0 101.415 1.415l.707-.708zm-7.071 7.072l.707-.707A1 1 0 003.465 9.12l-.708.707a1 1 0 001.415 1.415zm3.2-5.171a1 1 0 00-1.3 1.3l4 10a1 1 0 001.823.075l1.38-2.759 3.018 3.02a1 1 0 001.414-1.415l-3.019-3.02 2.76-1.379a1 1 0 00-.076-1.822l-10-4z" clip-rule="evenodd" />
+						</svg>
+						Számítás
+					</button>
+				</div>
+				<div class="mt-6 space-y-2">
+					<p id="address" class="text-gray-300"></p>
+					<p id="mask" class="text-gray-300"></p>
+					<p id="network" class="text-gray-300"></p>
+					<p id="broadcast" class="text-gray-300"></p>
+				</div>
+			</div>
+			<div class="flex flex-wrap gap-3">
+				<a href="/python/subnet.py" class="flex items-center px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors" download>
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+						<path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+					</svg>
+					Python változat
+				</a>
+				<a href="/cisco/cisco4/cisco4.pkt" class="flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors" download>
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+						<path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+					</svg>
+					Cisco hálózat
+				</a>
+				<button onclick="closeModal('modal4')" class="flex items-center px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors cursor-pointer">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+						<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+					</svg>
+					Bezár
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal 5 -->
+	<div id="modal5" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center hidden" onclick="closeModal('modal5')">
+		<div class="bg-gray-900 rounded-2xl p-8 max-w-4xl w-11/12 max-h-[90vh] overflow-auto border border-gray-700 shadow-2xl" onclick="event.stopPropagation()">
+			<div class="flex justify-between items-center mb-6">
+				<h2 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">11. év első projektje</h2>
+				<button onclick="closeModal('modal5')" class="text-gray-400 hover:text-white transition-colors">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				</button>
+			</div>
+			<div class="bg-gray-800/50 p-6 rounded-xl mb-6 border border-gray-700">
+				<h3 class="text-xl font-medium mb-4">Adatbázis lekérdezése:</h3>
+				<div class="flex flex-col gap-4">
+					<div class="flex flex-col gap-2">
+						<!-- <label for="ipInput" class="text-gray-300"></label> -->
+						<table>
+							<th align="center" colspan="4">SELECT * FROM users</th>
+							<tr>
+								<th align="center">ID</th>
+								<th align="center">Név</th>
+								<th align="center">Beosztás</th>
+								<th align="center">Százalék</th>
+							</tr>
+							{users.map((user: {id: number, nev: string, beosztas: string, szazalek: number}) => (
+								<tr>
+									<td align="center">{user.id}</td>
+									<td align="center">{user.nev}</td>
+									<td align="center">{user.beosztas}</td>
+									<td align="center">{user.szazalek}</td>
+								</tr>
+							))}
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="flex flex-wrap gap-3">
+				<a href="/sql/11per1.sql" class="flex items-center px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors" download>
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+						<path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+					</svg>
+					MariaDB változat
+				</a>
+				<a href="/cisco/cisco5/cisco5.pkt" class="flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors" download>
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+						<path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+					</svg>
+					Cisco hálózat
+				</a>
+				<button onclick="closeModal('modal5')" class="flex items-center px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors cursor-pointer">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+						<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+					</svg>
+					Bezár
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal 6 -->
+	<div id="modal6" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center hidden" onclick="closeModal('modal6')">
+		<div class="bg-gray-900 rounded-2xl p-8 max-w-4xl w-11/12 max-h-[90vh] overflow-auto border border-gray-700 shadow-2xl" onclick="event.stopPropagation()">
+			<div class="flex justify-between items-center mb-6">
+				<h2 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">11. év első projektje</h2>
+				<button onclick="closeModal('modal6')" class="text-gray-400 hover:text-white transition-colors">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				</button>
+			</div>
+			<div class="bg-gray-800/50 p-6 rounded-xl mb-6 border border-gray-700">
+				<h3 class="text-xl font-medium mb-4">Adatbázis lekérdezése:</h3>
+				<div class="flex flex-col gap-4">
+					<div class="flex flex-col gap-2">
+						<!-- <label for="ipInput" class="text-gray-300"></label> -->
+						<table>
+							<th align="center" colspan="2">SELECT gep.nev, ip.ip FROM gep, ip WHERE gep.id = ip.gep_id</th>
+							<tr>
+								<th align="center">Gép név</th>
+								<th align="center">IP</th>
+							</tr>
+							{gep.map((pc: {id: number, nev: string}) => {
+								const gepIp = ip.find((item: {gep_id: number, ip: string}) => item.gep_id === pc.id);
+								return (
+									<tr>
+										<td align="center">{pc.nev}</td>
+										<td align="center">{gepIp ? gepIp.ip : ''}</td>
+									</tr>
+								);
+							})}
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="flex flex-wrap gap-3">
+				<a href="/sql/11per2.sql" class="flex items-center px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors" download>
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+						<path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+					</svg>
+					MariaDB változat
+				</a>
+				<a href="/cisco/cisco5/cisco5.pkt" class="flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors" download>
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+						<path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+					</svg>
+					Cisco hálózat
+				</a>
+				<button onclick="closeModal('modal6')" class="flex items-center px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors cursor-pointer">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+						<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+					</svg>
+					Bezár
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Separator -->
+	<div class="w-3/5 h-px bg-white/20 my-8 mx-auto"></div>
+
+    <About />
+    <Footer />
+</Layout>

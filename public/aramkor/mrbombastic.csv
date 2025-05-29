@@ -1,0 +1,7 @@
+﻿Név,Mennyiség,Összetevő
+"BAT1",1," 9 V-os elem"
+"D3",1,"Zöld LED"
+"R3, R4",2,"1 kΩ Ellenállás"
+"S2",1," Nyomógomb"
+"R5",1," Erőmérő"
+"C1, C2",2,"100 uF, 16 V Polarizált kondenzátor"
